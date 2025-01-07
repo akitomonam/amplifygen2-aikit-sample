@@ -1,7 +1,4 @@
-import {
-  createFileRoute,
-  Link,
-} from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -13,11 +10,7 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
   return (
     <Box sx={{ p: 4 }}>
-      <Stack
-        spacing={2}
-        direction="row"
-        justifyContent="center"
-      >
+      <Stack spacing={2} direction="row" justifyContent="center">
         <Button
           component={Link}
           to="/generation"
@@ -45,20 +38,6 @@ function RouteComponent() {
           }}
         >
           Conversation
-        </Button>
-        <Button
-          component={Link}
-          to="/conversationMarkdown"
-          variant="contained"
-          sx={{
-            px: 4,
-            py: 1.5,
-            borderRadius: 2,
-            textTransform: 'none',
-            fontSize: '1.1rem',
-          }}
-        >
-          ConversationMarkdown
         </Button>
         <Button
           component={Link}

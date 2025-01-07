@@ -13,7 +13,6 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as MemberImport } from './routes/member'
 import { Route as GenerationImport } from './routes/generation'
-import { Route as ConversationMarkdownImport } from './routes/conversationMarkdown'
 import { Route as ConversationImport } from './routes/conversation'
 import { Route as IndexImport } from './routes/index'
 
@@ -28,12 +27,6 @@ const MemberRoute = MemberImport.update({
 const GenerationRoute = GenerationImport.update({
   id: '/generation',
   path: '/generation',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ConversationMarkdownRoute = ConversationMarkdownImport.update({
-  id: '/conversationMarkdown',
-  path: '/conversationMarkdown',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,13 +60,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConversationImport
       parentRoute: typeof rootRoute
     }
-    '/conversationMarkdown': {
-      id: '/conversationMarkdown'
-      path: '/conversationMarkdown'
-      fullPath: '/conversationMarkdown'
-      preLoaderRoute: typeof ConversationMarkdownImport
-      parentRoute: typeof rootRoute
-    }
     '/generation': {
       id: '/generation'
       path: '/generation'
@@ -96,7 +82,6 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/conversation': typeof ConversationRoute
-  '/conversationMarkdown': typeof ConversationMarkdownRoute
   '/generation': typeof GenerationRoute
   '/member': typeof MemberRoute
 }
@@ -104,7 +89,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/conversation': typeof ConversationRoute
-  '/conversationMarkdown': typeof ConversationMarkdownRoute
   '/generation': typeof GenerationRoute
   '/member': typeof MemberRoute
 }
@@ -113,40 +97,22 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/conversation': typeof ConversationRoute
-  '/conversationMarkdown': typeof ConversationMarkdownRoute
   '/generation': typeof GenerationRoute
   '/member': typeof MemberRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/conversation'
-    | '/conversationMarkdown'
-    | '/generation'
-    | '/member'
+  fullPaths: '/' | '/conversation' | '/generation' | '/member'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/conversation'
-    | '/conversationMarkdown'
-    | '/generation'
-    | '/member'
-  id:
-    | '__root__'
-    | '/'
-    | '/conversation'
-    | '/conversationMarkdown'
-    | '/generation'
-    | '/member'
+  to: '/' | '/conversation' | '/generation' | '/member'
+  id: '__root__' | '/' | '/conversation' | '/generation' | '/member'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConversationRoute: typeof ConversationRoute
-  ConversationMarkdownRoute: typeof ConversationMarkdownRoute
   GenerationRoute: typeof GenerationRoute
   MemberRoute: typeof MemberRoute
 }
@@ -154,7 +120,6 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConversationRoute: ConversationRoute,
-  ConversationMarkdownRoute: ConversationMarkdownRoute,
   GenerationRoute: GenerationRoute,
   MemberRoute: MemberRoute,
 }
@@ -171,7 +136,6 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/conversation",
-        "/conversationMarkdown",
         "/generation",
         "/member"
       ]
@@ -181,9 +145,6 @@ export const routeTree = rootRoute
     },
     "/conversation": {
       "filePath": "conversation.tsx"
-    },
-    "/conversationMarkdown": {
-      "filePath": "conversationMarkdown.tsx"
     },
     "/generation": {
       "filePath": "generation.tsx"

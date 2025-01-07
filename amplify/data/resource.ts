@@ -1,8 +1,4 @@
-import {
-  type ClientSchema,
-  a,
-  defineData,
-} from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
 import { getWeather } from '../functions/getWeather/resource';
 import { getHaiku } from '../functions/getHaiku/resource';
 
@@ -31,29 +27,23 @@ const schema = a.schema({
       })
     )
     .handler(a.handler.function(getWeather))
-    .authorization((allow) =>
-      allow.authenticated()
-    ),
+    .authorization((allow) => allow.authenticated()),
 
   getHaiku: a
     .query()
     .arguments({})
     .returns(a.string())
     .handler(a.handler.function(getHaiku))
-    .authorization((allow) =>
-      allow.authenticated()
-    ),
+    .authorization((allow) => allow.authenticated()),
 
   chat: a
     .conversation({
       aiModel: a.ai.model('Claude 3 Haiku'),
-      systemPrompt:
-        'あなたは有能なアシスタントです。',
+      systemPrompt: 'あなたは有能なアシスタントです。',
       tools: [
         a.ai.dataTool({
           name: 'MemberQuery',
-          description:
-            'メンバーの情報を検索します。',
+          description: 'メンバーの情報を検索して取得します。',
           model: a.ref('Member'),
           modelOperation: 'list',
         }),
@@ -68,7 +58,7 @@ const schema = a.schema({
 
   generateAwsLtTitle: a
     .generation({
-      aiModel: a.ai.model('Claude 3 Haiku'),
+      aiModel: a.ai.model('Claude 3.5 Sonnet'),
       systemPrompt:
         'あなたはAWSの勉強会のタイトルを考える専門家です。日本語でAWSの勉強会のタイトルを考えてください。',
       inferenceConfiguration: {
@@ -86,9 +76,7 @@ const schema = a.schema({
         keywords: a.string().array(),
       })
     )
-    .authorization((allow) =>
-      allow.authenticated()
-    ),
+    .authorization((allow) => allow.authenticated()),
 });
 
 export type Schema = ClientSchema<typeof schema>;
